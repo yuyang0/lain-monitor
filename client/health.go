@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -15,7 +16,9 @@ import (
 const (
 	TIMEOUT              = 5
 	HEALTHCHECK_INTERVAL = 60
+)
 
+var (
 	deploydMetric = "lain.deployd.health"
 	deploydURL    = "http://deployd.lain:9003/api/status"
 
@@ -30,6 +33,9 @@ const (
 
 	consulMetric = "lain.consul.health"
 	consulAddr   = "consul.lain:8500"
+
+	tinydnsMetric = "lain.tinydns.health"
+	tinydnsURL    = fmt.Sprintf("http://%s/ping", serverAddr)
 )
 
 type HealthChecker interface {
@@ -134,11 +140,13 @@ func runHealthCheckers(ctx context.Context, bd backend.Backend, logger *zap.Logg
 		deploydURL,
 		consoleURL,
 		swarmURL,
+		tinydnsURL,
 	}
 	names := []string{
 		deploydMetric,
 		consoleMetric,
 		swarmMetric,
+		tinydnsMetric,
 	}
 	var packets []*backend.Metric
 
