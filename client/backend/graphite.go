@@ -55,7 +55,7 @@ func (g *Graphite) Send(metrics []*Metric, logger *zap.Logger) {
 		}
 	}
 
-	logger.Info("Graphite.Send() succeed.", zap.Any("metrics", metrics))
+	logger.Info("Graphite.Send() succeed.", zap.Any("nb_metrics", len(metrics)))
 }
 
 // Close close the underlying connection

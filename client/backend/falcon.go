@@ -76,7 +76,7 @@ func (g *OpenFalconBackend) Send(metrics []*Metric, logger *zap.Logger) {
 		return
 	}
 	defer resp.Body.Close()
-	logger.Info("OpenFalconBackend.Send() succeed.", zap.Any("metrics", metrics))
+	logger.Info("OpenFalconBackend.Send() succeed.", zap.Any("nb_metrics", len(metrics)))
 }
 
 // Close close the underlying connection
