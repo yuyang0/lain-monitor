@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	dockerReservedMemoryMetric = "lain.cluster.node.docker_reserved_memory"
+	dockerReservedMemoryMetric = "lain.node.docker.reserved_memory"
 	swarmInfoURL               = "http://swarm.lain:2376/info"
 
 	// KiB = 1024 Byte

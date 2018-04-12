@@ -76,7 +76,6 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/api/v1/tinydns_status", common.Handle(getTinyDNSStatus, logger))
 	mux.HandleFunc("/ping", common.Handle(common.Ping, logger))
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),

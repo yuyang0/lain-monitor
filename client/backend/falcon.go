@@ -46,9 +46,13 @@ func (g *OpenFalconBackend) Send(metrics []*Metric, logger *zap.Logger) {
 		for k, v := range m.Tags {
 			tagSlice = append(tagSlice, fmt.Sprintf("%s=%s", k, v))
 		}
-
+		// if the metric name starts with endpoint, then remove the endpoint
+		name := m.Path
+		if strings.HasPrefix(name, DEFAULT_ENDPOINT+".") {
+			name = name[len(DEFAULT_ENDPOINT)+1:]
+		}
 		pkt := &openFalconMsg{
-			Metric:      m.Path,
+			Metric:      name,
 			Endpoint:    DEFAULT_ENDPOINT,
 			Tags:        strings.Join(tagSlice, ","),
 			Value:       m.Value,
