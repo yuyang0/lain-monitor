@@ -237,7 +237,6 @@ func runHealthCheckers(ctx context.Context, bd backend.Backend, logger *zap.Logg
 		swarmMetric,
 		tinydnsMetric,
 	}
-	var packets []*backend.Metric
 
 	for i := 0; i < len(names); i++ {
 		url := urls[i]
@@ -257,6 +256,8 @@ func runHealthCheckers(ctx context.Context, bd backend.Backend, logger *zap.Logg
 		ticker := time.NewTicker(HEALTHCHECK_INTERVAL)
 		defer ticker.Stop()
 		for {
+			var packets []*backend.Metric
+
 			select {
 			case now := <-ticker.C:
 				logger.Info("health check...", zap.Time("now", now))
